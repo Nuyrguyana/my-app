@@ -10,20 +10,28 @@ const CountersList = () => {
         {id: 4, value: 0, name: 'набор минималиста'}
     ]
     const [counters, setCounters] = useState(initialState)
+
     const handleDelete = (id) => {
-        console.log('handleDelete: ', id)
         const newCounters = counters.filter(c => c.id !== id)
-        // console.log(newCounters)
         setCounters(newCounters)
+    }
+    const handleIncrement = (id) => {
+        const newInitState = counters.map(elem => {
+            if (elem.id === id) {
+                elem.value++
+            }
+            return elem
+        })
+        setCounters(newInitState)
     }
     const handleReset = () => {
         setCounters(initialState)
-        console.log('handle Reset')
     }
     return (
         <>
             {counters.map((count) => (
-                <Counter onDelete={handleDelete} {...count} />
+                <Counter onDelete={handleDelete}
+                         onIncrement={handleIncrement} {...count} />
             ))}
             <button className='btn btn-primary btn-sm m-2'
             onClick={handleReset}>
